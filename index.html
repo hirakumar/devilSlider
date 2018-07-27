@@ -1,93 +1,43 @@
   <!DOCTYPE html>
   <html>
+  
   <head>
+  
     <title>EICI Events</title>
+	<meta charset="UTF-8">
   </head>
   <body>
-  <div class="devilGallery">
+  <div class="devilGallery ">
+  <a href="#" class="closeSlider">Close</a>
    <div class="largeImage">
 	
    </div>
 	<div class="thumnail">
 		<ul>
-			<li><img src="img/0.jpg" /></li>
-			<li><img src="img/1.jpg" /></li>
-			<li><img src="img/2.jpg" /></li>
-			<li><img src="img/3.jpg" /></li>
-			<li><img src="img/4.jpg" /></li>
-			<li><img src="img/5.jpg" /></li>
-			<li><img src="img/6.jpg" /></li>
+			<li><img src="img/0.jpg" title="Sample Title 1" /></li>
+			<li><img src="img/1.jpg" title="Sample Title 2" /></li>
+			<li><img src="img/2.jpg" title="Sample Title 3" /></li>
+			<li><img src="img/3.jpg" title="Sample Title 4" /></li>
+			<li><img src="img/4.jpg" title="Sample Title 5" /></li>
+			<li><img src="img/5.jpg" title="Sample Title 6" /></li>
+			<li><img src="img/6.jpg" title="Sample Title 7" /></li>
 		</ul>
 	</div>
+	<div class="sliderBottom">
+	<div id="title"></div>
+	
 	<div class="pagination">
 		<a href="#" class="prev">Previous</a>
 		<a href="#" class="next">Next</a>
 	</div>
+	<a href="#" id="lightBox">LightBox</a>
+	<a href="#" id="extract">Thumbnail Toggle</a>
+	</div>
   </div>
-  <style>
-  .devilGallery {display:block; text-align:center}
-    .devilGallery .thumnail{overflow:hidden; height:150px; }
-  .devilGallery .thumnail li{display:inline-block; margin:0px; padding:0px; width:200px}
-   .devilGallery .thumnail li img{width:100%; height:auto; margin:0px; padding:0px;}
-	
-  </style>
+  <link href="css/devilslider.css" rel="stylesheet"  />
+  <script src="js/devilslider.js"></script>
   <script>
-	let DevilGallery = function(sel){
-		
-		this.init(sel);
-		this.setLargeImage();
-		this.setEvent();
-		
-		
-	}
-	DevilGallery.prototype.nextBtn;
-	DevilGallery.prototype.ele;
-	DevilGallery.prototype.tot;
-	DevilGallery.prototype.thumbnail;
-	DevilGallery.prototype.thumbnailItemNo;
-	DevilGallery.prototype.thumbnailItemWidth;
 	
-	DevilGallery.prototype.init=function(sel){
-		
-		this.ele=document.querySelector(sel);
-		this.tot=this.ele.querySelectorAll('.thumnail li').length;
-		console.dir(this);
-		
-		this.nextBtn=this.ele.querySelector('.pagination .next');
-		this.thumbnail=this.ele.querySelector('.thumnail');
-		this.thumbnailItemNo=4;
-		this.thumbnailItemWidth=200;
-		
-		
-	}
-	DevilGallery.prototype.setNext=function(e){
-		console.log(e);
-		console.log(this.thumbnail);
-		var siftWidth=this.thumbnailItemNo*this.thumbnailItemWidth;
-		this.thumbnail.style.transform="translate(-"+siftWidth+"px)";
-	}
-	DevilGallery.prototype.largeImg;
-	DevilGallery.prototype.setLargeImage=function(){
-		this.largeImg =this.ele.querySelector('.largeImage');
-		// this.ele.querySelector('li img');
-		if(this.largeImg.children.length<1){
-			let firstEle=document.querySelector('.thumnail li');
-			this.largeImg.innerHTML=firstEle.innerHTML;
-		}
-		
-	}
-	
-	DevilGallery.prototype.setEvent=function(){
-		for(index of this.ele.querySelectorAll('.thumnail li img')){
-			index.addEventListener("click",this.setBigImg.bind(this),false);
-		}
-		this.nextBtn.addEventListener("click",this.setNext.bind(this),false);
-		
-	}
-	DevilGallery.prototype.setBigImg=function(e){
-		console.log(this.largeImg);
-		this.largeImg.innerHTML=e.target.parentElement.innerHTML;
-	}
 	
 	
 	new DevilGallery('.devilGallery');
