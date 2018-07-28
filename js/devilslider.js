@@ -13,6 +13,7 @@ let DevilGallery = function(sel){
 	DevilGallery.prototype.ele;
 	DevilGallery.prototype.tot;
 	DevilGallery.prototype.thumbnail;
+	DevilGallery.prototype.thumnailGap=15;
 	DevilGallery.prototype.thumbnailItemNo;
 	DevilGallery.prototype.thumbnailItemWidth;
 	DevilGallery.prototype.thumbnailUL;
@@ -27,6 +28,9 @@ let DevilGallery = function(sel){
 	DevilGallery.prototype.lightBox;
 	DevilGallery.prototype.lightBoxToggle=false;
 	DevilGallery.prototype.closeBtn;
+	DevilGallery.prototype.maxScrollY;
+	DevilGallery.prototype.eachScrollY;
+	
 	
 	DevilGallery.prototype.setThumbnailIndex=function(){
 		var allLi=this.thumbnail.querySelectorAll('ul li');
@@ -37,37 +41,38 @@ let DevilGallery = function(sel){
 			i++;
 		}
 	}
-	DevilGallery.prototype.setCurrentSlide=function(index){
-		parseInt(index);
+	DevilGallery.prototype.setCurrentSlide=function(myindex){
+		
 		//In Default Setting for Current Slide
-		
-		if(index==undefined){
-			this.thumbnail.querySelector('ul li:first-child').classList.add('current');
+		console.log
+		if(myindex==undefined){
+			myindex=this.sliderIndex;
 		}
-		
+		console.log("Method : setCurrentSlide");
+		console.log("Slide Index : "+myindex);
 		//If User Click on thumbnail
-		if(index!=undefined){
-			//index++;
-			console.log("Index :" +parseInt(index));
-			console.log(index);
-			let allLi = this.thumbnail.querySelectorAll('ul li');
+		
+		//index++;
+		console.log("Index :" +parseInt(myindex));
+		console.log(myindex);
+		let allLi = this.thumbnail.querySelectorAll('ul li');
+		
+		let i=0;
+		let nextSlide=0;
+		while(i<allLi.length){
 			
-			let i=0;
-			let nextSlide=0;
-			while(i<allLi.length){
-				
-				if(index==i){
-					nextSlide=parseInt(index)+1;
-					console.log("Current LI :"+nextSlide);
-					allLi[index].classList.add('current');
-					console.log("I found on "+i);
-				}else{
-					allLi[i].classList.remove('current');
-				}
-				i++;
+			if(myindex==i){
+				nextSlide=parseInt(myindex)+1;
+				console.log("Current LI :"+nextSlide);
+				allLi[myindex].classList.add('current');
+				console.log("I found on "+i);
+			}else{
+				allLi[i].classList.remove('current');
 			}
-			
+			i++;
 		}
+			
+		
 	}
 	DevilGallery.prototype.init=function(sel){
 		
@@ -85,6 +90,9 @@ let DevilGallery = function(sel){
 		this.thumbnailItemNo=4;
 		this.thumbnailItemWidth=240;
 		
+		this.maxScrollY=this.thumbnail.scrollTopMax;
+		this.eachScrollY=(this.maxScrollY/this.tot)+this.thumnailGap;
+		
 		// Thumbnail Toggle
 		this.thumbnailToggle=this.ele.querySelector('a#extract');
 		
@@ -98,11 +106,16 @@ let DevilGallery = function(sel){
 		
 	}
 	DevilGallery.prototype.setKeyBoardAction=function(e){
-		//console.log(e.keyCode);
+		//console.log(e.key);
 		
-		
-		
-			//this.setNext(e);
+		if(e.key=="ArrowRight"){
+			this.setNext(e);
+		}
+		if(e.key=="ArrowLeft"){
+			//console.log("Called method setPrev");
+			this.setPrev(e);
+		}	
+		//	
 		
 	}
 	DevilGallery.prototype.setTitle=function(title){
@@ -119,35 +132,49 @@ let DevilGallery = function(sel){
 		
 	}
 	DevilGallery.prototype.setNext=function(e){
-		console.log(e);
-		console.log(this.thumbnail);
+	//	console.log("Slide Index :" + this.sliderIndex);
+	//	console.log(this.thumbnail.scrollTop);
 		//var siftWidth=this.thumbnailItemNo*this.thumbnailItemWidth;
-		if(this.sliderIndex<this.tot){
+		console.log("Slide Index :" + this.sliderIndex + " and Total Index :"+this.tot);
+		if(this.sliderIndex<this.tot-1){
 			this.thumbnailPos-=this.thumbnailImgHeight;
-			this.thumbnailUL.style.transform="translateY("+this.thumbnailPos+"px)";
+			//this.thumbnailUL.style.transform="translateY("+this.thumbnailPos+"px)";
+			this.thumbnail.scrollTop+=this.eachScrollY;
 			this.sliderIndex++;
 			this.setBigImg(e);
 		}
 		
 		//console.log("Thumbnail Pos : " + this.thumbnailPos);
+		//console.log(this.thumbnail.scrollTop=133);
 	}
 	DevilGallery.prototype.setPrev=function(e){
-		console.log(e);
-		console.log(this.thumbnail);
+		
+	//	console.log("Method : setPrev");
+	//	console.log("Slider Index : "+this.sliderIndex);
 		//var siftWidth=this.thumbnailItemNo*this.thumbnailItemWidth;
-		this.thumbnailPos+=this.thumbnailImgHeight;
-		this.thumbnailUL.style.transform="translateY("+this.thumbnailPos+"px)";
-		this.sliderIndex--;
-		this.setBigImg(e);
+		if(this.sliderIndex>0){
+			console.log(this.thumbnail);
+			this.thumbnailPos+=this.thumbnailImgHeight;
+			//this.thumbnailUL.style.transform="translateY("+this.thumbnailPos+"px)";
+			this.thumbnail.scrollTop-=this.eachScrollY;
+			this.sliderIndex--;
+			this.setBigImg(e);
 		//console.log("Thumbnail Pos : " + this.thumbnailPos);
+		}
 	}
 	
 	DevilGallery.prototype.setLargeImage=function(){
 		this.largeImg =this.ele.querySelector('.largeImage');
 		// this.ele.querySelector('li img');
 		if(this.largeImg.children.length<1){
-			let firstEle=document.querySelector('.thumnail li');
-			this.largeImg.innerHTML=firstEle.innerHTML;
+			let firstEle=this.thumbnail.querySelector('li:first-child a');
+			
+			let img = document.createElement('IMG');
+			console.log(firstEle);
+			img.src=firstEle.href;
+			this.largeImg.appendChild(img);
+			
+			
 		}
 		
 	}
@@ -205,16 +232,23 @@ let DevilGallery = function(sel){
 	//console.log(e.currentTarget.title);
 		//console.log(e);
 		
-		if(e.currentTarget.tagName=="IMG") {
-			let parentEle=e.currentTarget.parentElement;
-			this.largeImg.innerHTML=e.target.parentElement.innerHTML;
-			this.sliderIndex=parseInt(parentEle.dataset.index);
-			this.setTitle(e.currentTarget.title);
-			this.setCurrentSlide(e.currentTarget.parentElement.dataset.index);
+		console.log(e.target);
+		if(e.target.tagName=="IMG") {
+			
+			let parentEle=e.target.parentElement;
+			console.log(this.largeImg.firstChild);
+			console.log(e.target.parentElement.href);
+			
+			this.largeImg.querySelector('img').src=e.target.parentElement.href;
+			
+			this.sliderIndex=parseInt(parentEle.parentElement.dataset.index);
+			this.setTitle(e.target.title);
+			this.setCurrentSlide(e.target.parentElement.parentElement.dataset.index);
 			this.setClassPrevNext(this.sliderIndex);
 			
-		}else if(e.currentTarget.tagName=="A"){
-			//console.log(e.currentTarget);
+			e.preventDefault();
+		}else if(e.target.tagName=="A"){
+			//console.log(e.target);
 			
 			// If user click on Next/Previous Button to change Large Image
 			let thumbnailChild=this.sliderIndex+1;
@@ -229,44 +263,45 @@ let DevilGallery = function(sel){
 			let nextPatt=/next/g;
 			
 			
-			if(prevPatt.test(e.currentTarget.className)){
+			if(prevPatt.test(e.target.className)){
 				// If User click on Previous Button
 				console.log("Current Index :"+this.sliderIndex);
 				
-				let prevImg=this.thumbnail.querySelector('ul li:nth-child('+thumbnailChild+')');
-				this.largeImg.innerHTML=prevImg.innerHTML;
-			}else if(nextPatt.test(e.currentTarget.className)){
+				let prevImg=this.thumbnail.querySelector('ul li:nth-child('+thumbnailChild+') a');
+				this.largeImg.querySelector('img').src=prevImg.href;
+			}else if(nextPatt.test(e.target.className)){
 				// If User click on Next Button
-				let nextImg=this.thumbnail.querySelector('ul li:nth-child('+thumbnailChild+')');
-				this.largeImg.innerHTML=nextImg.innerHTML;
+				let nextImg=this.thumbnail.querySelector('ul li:nth-child('+thumbnailChild+') a');
+				this.largeImg.querySelector('img').src=nextImg.href;
 				
 			}
 		}else if(e.type=="keydown"){
-			console.log("I am from keyboard");
-			console.log(e.code);
-			console.log("Slide Index :" + this.sliderIndex);
+			//console.log("I am from keyboard");
+			//console.log(e.code);
+			//console.log("Slide Index :" + this.sliderIndex);
 			let thumbnailChild=this.sliderIndex+1;
-			
-			if(this.sliderIndex<this.tot && this.sliderIndex>0){
+			console.log(this.sliderIndex);
+			if(this.sliderIndex<this.tot && this.sliderIndex>-1){
 			let titleTxt=this.thumbnail.querySelector('ul li:nth-child('+thumbnailChild+') img').title;
 			this.setTitle(titleTxt);
 			this.setCurrentSlide(this.sliderIndex);
 			this.setClassPrevNext(this.sliderIndex);
 			
-			
+			//console.log("Keypressed : "+e.code);
 			
 			if(e.code=="ArrowRight"){
 				if(this.sliderIndex<this.tot){
-					let nextImg=this.thumbnail.querySelector('ul li:nth-child('+thumbnailChild+')');
-					this.largeImg.innerHTML=nextImg.innerHTML;
+					let nextImg=this.thumbnail.querySelector('ul li:nth-child('+thumbnailChild+') a');
+					this.largeImg.querySelector('img').src=nextImg.href;
 				}else{
 					console.log("You can not see next");
 				}
 				
 			}else if(e.code=="ArrowLeft"){
-				if(this.sliderIndex>1){
-					let prevImg=this.thumbnail.querySelector('ul li:nth-child('+thumbnailChild+')');
-					this.largeImg.innerHTML=prevImg.innerHTML;
+				console.log("Keyboard Key Arrow LEft is pressed");
+				if(this.sliderIndex>=0){
+					let prevImg=this.thumbnail.querySelector('ul li:nth-child('+thumbnailChild+') a');
+					this.largeImg.querySelector('img').src=prevImg.href;
 				}else{
 					console.log("You can not see previous");
 				}

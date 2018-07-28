@@ -2,8 +2,10 @@
 .closeSlider{display:none; position:fixed; top:40px; right:50px; }
 body{overflow-x:hidden}
 .largeImage{width:80%; float:left; display:block}
+
+
     .devilGallery .thumnail{overflow:auto; height:100%; width:20%;  background:#ccc; position:absolute; right:0px; }
-  .devilGallery .thumnail li{display:block; margin:0px; padding:0px; width:200px; border:solid 4px #fff}
+  .devilGallery .thumnail li{display:block; margin:0px; padding:0px; width:200px; border:solid 4px #fff; margin:15px 0}
    .devilGallery .thumnail li img{width:100%; height:auto; margin:0px; padding:0px;}
    .devilGallery .thumnail li.current{border:solid 4px red}
    .pagination{clear:both; display:block}
@@ -31,11 +33,14 @@ height: auto;}
    .devilGallery.lightBox .largeImage img{
 	   max-width:80%;
 	   max-height:80%;
+	   width:auto;
+	   height:auto;
    }
   .devilGallery.lightBox .thumnail{display:none}
   .devilGallery.lightBox .sliderBottom{position:fixed; bottom:15px; z-index:10; display:block; width:100%; }
-   .devilGallery.lightBox .next{position:fixed; right:50px; top:50%;}
-    .devilGallery.lightBox .prev{position:fixed; left:50px; top:50%;}
+   .devilGallery.lightBox .next{position:fixed; right:50px; top:50%; display:none}
+    .devilGallery.lightBox .prev{position:fixed; left:50px; top:50%; display:none}
 .devilGallery.lightBox #lightBox{display:none}
 .devilGallery.lightBox #extract{display:none}
 .devilGallery.lightBox .closeSlider{display:block; z-index:15}
+.devilGallery.lightBox #title{display:none}
