@@ -2,25 +2,26 @@
 .closeSlider{display:none; position:fixed; top:40px; right:50px; }
 body{overflow-x:hidden}
 .largeImage{width:80%; float:left; display:block}
+.largeImage img{max-width:100%;}
 
-
-    .devilGallery .thumnail{overflow:auto; height:100%; width:20%;  background:#ccc; position:absolute; right:0px; }
-  .devilGallery .thumnail li{display:block; margin:0px; padding:0px; width:200px; border:solid 4px #fff; margin:15px 0}
-   .devilGallery .thumnail li img{width:100%; height:auto; margin:0px; padding:0px;}
-   .devilGallery .thumnail li.current{border:solid 4px red}
+    .devilGallery .thumbnail{overflow:auto; height:100%; width:20%;  background:#ccc; position:absolute; right:0px; display:flex; }
+	 .devilGallery .thumbnail ul{margin:0px auto; padding:0 10px; text-align:center}
+  .devilGallery .thumbnail li{display:block; margin:0px; padding:0px; max-width:200px; border:solid 4px #fff; margin:15px 0}
+   .devilGallery .thumbnail ul li img{max-width:100%; width:auto; height:auto; margin:0px; padding:0px;}
+   .devilGallery .thumbnail li.current{border:solid 4px red}
    .pagination{clear:both; display:block}
    .sliderBottom{clear:both; display:block}
   .devilGallery.extract .largeImage{width:100%}
 	 .devilGallery.extract .largeImage img {width: 100%;
 height: auto;}
-  .devilGallery.extract .thumnail{right:-20%}
+  .devilGallery.extract .thumbnail{right:-20%}
    .devilGallery .prev.hide{display:none;}
    .devilGallery .next.hide{display:none;}
    
    .devilGallery.lightBox .largeImage{
 	   
 	   position:fixed;
-	   background:rgb(0, 0, 0,0.5);
+	   background:rgb(0,0,0,0.8);
 	   width:100%;
 	   height:100%;
 	   top:0px;
@@ -36,7 +37,7 @@ height: auto;}
 	   width:auto;
 	   height:auto;
    }
-  .devilGallery.lightBox .thumnail{display:none}
+  .devilGallery.lightBox .thumbnail{display:none}
   .devilGallery.lightBox .sliderBottom{position:fixed; bottom:15px; z-index:10; display:block; width:100%; }
    .devilGallery.lightBox .next{position:fixed; right:50px; top:50%; display:none}
     .devilGallery.lightBox .prev{position:fixed; left:50px; top:50%; display:none}
