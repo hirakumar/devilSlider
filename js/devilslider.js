@@ -1,11 +1,17 @@
 const DevilGallery = function(sel){
-
-    DevilGallery.init(sel);
+	try{
+		document.querySelector(sel);
+		DevilGallery.init(sel);
     DevilGallery.setLargeImage();
     DevilGallery.setEvent();
     DevilGallery.setThumbnailIndex();
     DevilGallery.setTitle();
     DevilGallery.setCurrentSlide();
+	}catch(err){
+		console.log('sorry');
+	}
+	
+    
 }
 DevilGallery.gallery;
 DevilGallery.nextBtn;
