@@ -302,8 +302,8 @@ DevilGallery.nextSlideAnimation=function(href){
 		
 		// First Image
 		let firstImg=this.largeImg.querySelector('img:first-child');
-		firstImg.style.WebkitAnimation = "fadeOut 1s";
-		firstImg.style.animation = "fadeOut 1s";   
+		firstImg.style.WebkitAnimation = "fadeOut 10ms";
+		firstImg.style.animation = "fadeOut 10ms";   
 		firstImg.addEventListener("webkitAnimationEnd", function(){
 		this.parentElement.removeChild(this);
 		console.log(DevilGallery.sliderIndex);
@@ -314,8 +314,8 @@ DevilGallery.nextSlideAnimation=function(href){
 		img.src=href;
 		this.largeImg.appendChild(img);
 		let lastImg=this.largeImg.querySelector('img:last-child');
-		lastImg.style.WebkitAnimation = "fadeIn 1s";
-		lastImg.style.animation = "fadeIn 1s"; 
+		lastImg.style.WebkitAnimation = "fadeIn 10ms";
+		lastImg.style.animation = "fadeIn 10ms"; 
 	
 }
 
@@ -336,7 +336,7 @@ DevilGallery.setBigImg=function(e){
         DevilGallery.setCurrentSlide(e.target.parentElement.parentElement.dataset.index);
         DevilGallery.setClassPrevNext(DevilGallery.sliderIndex);
 		console.log(DevilGallery.sliderIndex);
-
+		DevilGallery.currentSlideEle.innerHTML=DevilGallery.sliderIndex+1;
         e.preventDefault();
     }else if(e.currentTarget.tagName=="A"){
         //console.log(e.target);
