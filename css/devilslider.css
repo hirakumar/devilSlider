@@ -1,22 +1,27 @@
+body,html{margin:0px; height:0px; height:100%; font-family:arial}
 .devilGallery {display:block; text-align:center; }
 .closeSlider{display:none; position:fixed; top:40px; right:50px; }
 body{overflow-x:hidden}
-.largeImage{width:80%; float:left; display:block; position:relative}
-.largeImage img{max-width:100%;}
+.largeImage{width:80%;  display:flex; position:absolute; height:calc(100% - 80px); justify-content: center;
+
+text-align: center;
+
+align-items: center;}
+.largeImage img{position:absolute}
 .devilGallery .largeImage img:last-child{
-	position:absolute;
-	top:0;
-	left:0px;
+	
 }
     .devilGallery .thumbnail{overflow:auto; height:100%; width:20%;  background:#ccc; position:absolute; right:0px; display:flex; }
 	 .devilGallery .thumbnail ul{margin:0px auto; padding:0 10px; text-align:center}
   .devilGallery .thumbnail li{display:block; margin:0px; padding:0px; max-width:200px; border:solid 4px #fff; margin:15px 0}
    .devilGallery .thumbnail ul li img{max-width:100%; width:auto; height:auto; margin:0px; padding:0px;}
    .devilGallery .thumbnail li.current{border:solid 4px red}
-   .pagination{clear:both; display:block}
-   .sliderBottom{clear:both; display:block; position:fixed; bottom:0px;}
+   .pagination{clear:both; display:block; font-size:14px; padding:10px 0}
+   .pagination a{display:inline-block; border-radius:25px; padding:3px 10px; border:solid 1px #ccc; text-decoration:none; color:#666}
+   .sliderBottom{clear:both; display:block; position:fixed; bottom:0px; width:80%; height:80px; padding:10px 0;
+   }
   .devilGallery.extract .largeImage{width:100%}
-	 .devilGallery.extract .largeImage img {width: 100%;
+	 .devilGallery.extract .largeImage img {max-width: 100%;
 height: auto;}
   .devilGallery.extract .thumbnail{right:-20%}
    .devilGallery .prev.hide{display:none;}
@@ -42,14 +47,17 @@ height: auto;}
 	   height:auto;
    }
   .devilGallery.lightBox .thumbnail{display:none}
-  .devilGallery.lightBox .sliderBottom{position:fixed; bottom:15px; z-index:10; display:block; width:100%; }
+  .devilGallery.lightBox .sliderBottom{position:fixed; bottom:15px; z-index:10; display:block; width:100%; color:#fff }
    .devilGallery.lightBox .next{position:fixed; right:50px; top:50%; display:none}
     .devilGallery.lightBox .prev{position:fixed; left:50px; top:50%; display:none}
 .devilGallery.lightBox #lightBox{display:none}
 .devilGallery.lightBox #extract{display:none}
 .devilGallery.lightBox .closeSlider{display:block; z-index:15}
 .devilGallery.lightBox #title{display:none}
+#lightBox{position:absolute; right:10px;}
+#extract{position:absolute; right:40px;}
 
+.extract .sliderBottom{width:100%; background:#fff}
 /* Chrome, Safari, Opera */
 @-webkit-keyframes fadeOut {
     from {opacity: 1;}

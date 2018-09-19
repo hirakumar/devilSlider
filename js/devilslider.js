@@ -1,3 +1,6 @@
+/*
+Devil Slider 1.0.1
+*/
 const DevilGallery = function(sel){
 	try{
 		document.querySelector(sel);
@@ -253,11 +256,12 @@ DevilGallery.closeLightBox=function(){
 }
 DevilGallery.setLightBoxToggle=function(){
     console.log("Light Box "+ DevilGallery.lightBoxToggle);
-
+	
     if(DevilGallery.lightBoxToggle == false){
 
         document.querySelector('body').classList.add('lightBoxActive');
         DevilGallery.ele.classList.add('lightBox');
+		
         DevilGallery.lightBoxToggle=true;
     }else if(DevilGallery.lightBoxToggle == true){
 
@@ -266,7 +270,7 @@ DevilGallery.setLightBoxToggle=function(){
 
         DevilGallery.lightBoxToggle=false;
     }
-
+	DevilGallery.ele.classList.remove('extract');
 }
 DevilGallery.setThumbNailToggle=function(e){
     console.log("Set Extract Toggle");
@@ -274,13 +278,17 @@ DevilGallery.setThumbNailToggle=function(e){
     console.log(e.target);
     if(DevilGallery.thumbnailCounter==false){
         DevilGallery.ele.classList.add('extract');
+		
         DevilGallery.thumbnailCounter=true;
         e.target.classList.add('deactive');
     }else{
         DevilGallery.ele.classList.remove('extract');
+		
+		
         DevilGallery.thumbnailCounter=false;
         e.target.classList.remove('deactive');
     }
+	DevilGallery.ele.classList.remove('lightBox');
 }
 DevilGallery.setClassPrevNext=function(){
     // console.log(this.sliderIndex);
@@ -302,8 +310,8 @@ DevilGallery.nextSlideAnimation=function(href){
 		
 		// First Image
 		let firstImg=this.largeImg.querySelector('img:first-child');
-		firstImg.style.WebkitAnimation = "fadeOut 10ms";
-		firstImg.style.animation = "fadeOut 10ms";   
+		firstImg.style.WebkitAnimation = "fadeOut 500ms";
+		firstImg.style.animation = "fadeOut 500ms";   
 		firstImg.addEventListener("webkitAnimationEnd", function(){
 		this.parentElement.removeChild(this);
 		console.log(DevilGallery.sliderIndex);
@@ -314,8 +322,8 @@ DevilGallery.nextSlideAnimation=function(href){
 		img.src=href;
 		this.largeImg.appendChild(img);
 		let lastImg=this.largeImg.querySelector('img:last-child');
-		lastImg.style.WebkitAnimation = "fadeIn 10ms";
-		lastImg.style.animation = "fadeIn 10ms"; 
+		lastImg.style.WebkitAnimation = "fadeIn 500ms";
+		lastImg.style.animation = "fadeIn 500ms"; 
 	
 }
 
